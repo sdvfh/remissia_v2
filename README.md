@@ -1,1 +1,2 @@
-# remissia_v2
+# RemissIA
+This is the repository of the RemissIA project.
