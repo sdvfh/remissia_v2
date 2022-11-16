@@ -2,7 +2,7 @@ import gzip
 import pickle
 
 import pandas as pd
-from remissia.utils import attributes, get_path
+from remissia.utils import get_path
 
 path = get_path()
 
@@ -16,6 +16,10 @@ for i in range(30):
 
     feat_imp.append(metrics["feat_imp"])
     metrics_values.append(metrics["metric"])
+
+attributes = pd.read_parquet(list(path["dataset"].rglob("*.snappy.parquet"))[0]).columns.tolist()
+for to_exclude in ["DEAD_DUE_CANCER", "TIME_SURVIVAL", "NO_REMISSION",]:
+    attributes.remove(to_exclude)
 
 df = pd.DataFrame(feat_imp, columns=attributes)
 metrics_values = pd.DataFrame(metrics_values, columns=metrics_names)
